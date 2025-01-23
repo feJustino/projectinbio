@@ -16,7 +16,7 @@ export default function UserCard() {
       <div className="flex flex-col gap-2 w-full">
         <div className="flex items-center gap-2">
           <h3 className="text-3xl font-bold min-w-0 overflow-hidden">
-            Diego Fernandes
+            Felipe Justino
           </h3>
         </div>
         <p className="opacity-40">Full Stack Developer</p>
@@ -33,13 +33,13 @@ export default function UserCard() {
             </button>
           ))}
         </div>
-        <div className="flex flex-col gap-3 w-full h-[172px]">
-          <div className="w-full flex flex-col items-center gap-3">
-            <Button>Template Saas - Compre Agora</Button>
-            <button className="p-3 rounded-xl bg-[#1E1E1E] hover:bg-[#2E2E2E]">
-              <Plus />
-            </button>
-          </div>
+      </div>
+      <div className="flex flex-col gap-3 w-full h-[172px]">
+        <div className="w-full flex flex-col items-center gap-3">
+          <Button>Template Saas - Compre Agora</Button>
+          <button className="p-3 rounded-xl bg-[#1E1E1E] hover:bg-[#2E2E2E]">
+            <Plus />
+          </button>
         </div>
       </div>
     </div>

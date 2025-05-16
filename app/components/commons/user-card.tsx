@@ -1,4 +1,4 @@
-import Button from '@/app/ui/button';
+import Button from '@/app/components/ui/button';
 import { Github, Linkedin, Instagram, Twitter, Plus } from 'lucide-react';
 
 export default function UserCard() {

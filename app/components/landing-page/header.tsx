@@ -1,4 +1,4 @@
-import Button from '@/app/ui/button';
+import Button from '@/app/components/ui/button';
 
 export function Header() {
   return (

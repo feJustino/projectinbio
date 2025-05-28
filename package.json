@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@auth/firebase-adapter": "^2.9.1",
+    "browser-image-compression": "^2.0.2",
     "clsx": "^2.1.1",
     "firebase-admin": "^13.4.0",
     "i": "^0.3.7",

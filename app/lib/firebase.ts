@@ -21,4 +21,17 @@ if (!getApps().length) {
   });
 }
 export const db = getFirestore();
+
 export const storage = getStorage().bucket();
+
+export async function getDownloadURLFromPath(path?: string) {
+  if (!path) return;
+
+  const file = storage.file(path);
+
+  const [url] = await file.getSignedUrl({
+    action: 'read',
+    expires: Date.now() + 24 * 60 * 60 * 1000,
+  });
+  return url;
+}

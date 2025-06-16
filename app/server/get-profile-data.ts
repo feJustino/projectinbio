@@ -1,11 +1,14 @@
 import 'server-only';
 import { db } from '@/app/lib/firebase';
+import { Link } from '../actions/create-custom-links';
 
 export type ProfileData = {
   userId: string;
   totalVisits: string;
   createAt: Number;
-  // todo - adicionar outros tipos
+  socialMedias: Record<string, string>;
+  customLinks: Link[];
+  updateAt?: number;
 };
 
 export type ProjectData = {

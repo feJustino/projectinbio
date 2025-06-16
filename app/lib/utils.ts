@@ -44,3 +44,8 @@ export const compressImage = async (file: File): Promise<File> => {
       });
   });
 };
+
+export function formatURL(url: string) {
+  const formattedURL = url.startsWith('http') ? url : `https://${url}`;
+  return formattedURL;
+}

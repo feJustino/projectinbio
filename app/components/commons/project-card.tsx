@@ -1,3 +1,5 @@
+'use client';
+import { formatURL } from '@/app/lib/utils';
 import { ProjectData } from '@/app/server/get-profile-data';
 import Link from 'next/link';
 
@@ -12,9 +14,7 @@ export function ProjectCard({
 }) {
   const { projectName, projectDescription, totalVisits } = project;
   const projectUrl = project.projectUrl || '';
-  const formattedURL = projectUrl.startsWith('http')
-    ? projectUrl
-    : `https://${projectUrl}`;
+  const formattedURL = formatURL(projectUrl);
 
   const handleClick = () => {
     console.log('clicked');

@@ -49,3 +49,24 @@ export function formatURL(url: string) {
   const formattedURL = url.startsWith('http') ? url : `https://${url}`;
   return formattedURL;
 }
+
+export function triggerImageInput(id: string) {
+  document.getElementById(id)?.click();
+}
+
+export function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
+  const file = e.target.files?.[0] ?? null;
+  if (file) {
+    const imageUrl = URL.createObjectURL(file);
+    return imageUrl;
+  }
+  return null;
+}
+
+export async function compressImageFile(documentId: string) {
+  const imageInput = document.getElementById(documentId) as HTMLInputElement;
+  if (imageInput.files && imageInput.files.length > 0) {
+    return await compressFiles(Array.from(imageInput.files));
+  }
+  return null;
+}

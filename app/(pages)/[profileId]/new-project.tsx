@@ -5,10 +5,15 @@ import Button from '@/app/components/ui/button';
 import Modal from '@/app/components/ui/modal';
 import TextArea from '@/app/components/ui/text-area';
 import TextInput from '@/app/components/ui/text-input';
-import { compressFiles } from '@/app/lib/utils';
+import {
+  compressFiles,
+  compressImageFile,
+  handleImageChange,
+  triggerImageInput,
+} from '@/app/lib/utils';
 import { ArrowUpFromLine, Plus } from 'lucide-react';
 import { useRouter } from 'next/navigation';
-import { startTransition, useState } from 'react';
+import { startTransition, useEffect, useState } from 'react';
 
 function NewProject({ profileId }: { profileId: string }) {
   const router = useRouter();
@@ -20,49 +25,51 @@ function NewProject({ profileId }: { profileId: string }) {
   const [projectDescription, setProjectDescription] = useState<string>('');
   const [projectImage, setProjectImage] = useState<string | null>('');
 
-  function triggerImageInput(id: string) {
-    document.getElementById(id)?.click();
-  }
-
-  function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const file = e.target.files?.[0] ?? null;
-    if (file) {
-      const imageUrl = URL.createObjectURL(file);
-      setProjectImage(imageUrl);
-    }
-  }
-
   function handleCloseModal() {
     setIsOpen(false);
   }
-
+  function resetForm() {
+    setProjectName('');
+    setProjectDescription('');
+    setProjectUrl('');
+    setProjectImage(null);
+  }
   async function handleSaveProject() {
     setIsCreatingProject(true);
-    const imageInput = document.getElementById(
-      'imageInput'
-    ) as HTMLInputElement;
-    if (imageInput.files) {
-      const compressedFiles = await compressFiles(Array.from(imageInput.files));
+    const compressedFiles = await compressImageFile('imageInput');
 
+    if (compressedFiles) {
       const formData = new FormData();
       formData.append('file', compressedFiles[0]);
       formData.append('profileId', profileId);
       formData.append('projectName', projectName);
       formData.append('projectDescription', projectDescription);
       formData.append('projectUrl', projectUrl);
-
-      await createProject(formData);
-      startTransition(() => {
-        setIsOpen(false);
-        setProjectName('');
-        setProjectDescription('');
-        setProjectUrl('');
-        setProjectImage(null);
+      try {
+        await createProject(formData);
+        startTransition(() => {
+          resetForm();
+          setIsCreatingProject(false);
+          setIsOpen(false);
+          router.refresh();
+        });
+      } catch (error) {
+        console.error('Error creating project:', error);
         setIsCreatingProject(false);
-        router.refresh();
-      });
+        return;
+      }
+    } else {
+      console.error('No image file selected');
+      setIsCreatingProject(false);
+      return;
     }
   }
+
+  useEffect(() => {
+    return () => {
+      resetForm();
+    };
+  }, [isOpen]);
 
   return (
     <>
@@ -86,7 +93,7 @@ function NewProject({ profileId }: { profileId: string }) {
                   <img
                     src={projectImage}
                     alt="Imagem do projeto"
-                    className="object-cover object-center"
+                    className="object-cover object-center w-full h-full rounded-md"
                   />
                 ) : (
                   <button
@@ -109,7 +116,8 @@ function NewProject({ profileId }: { profileId: string }) {
                 id="imageInput"
                 accept="image/*"
                 className="hidden"
-                onChange={handleImageChange}
+                onChange={e => setProjectImage(handleImageChange(e))}
+                required
               />
             </div>
             <div className="flex flex-col gap-4 w-[293px]">
@@ -120,6 +128,7 @@ function NewProject({ profileId }: { profileId: string }) {
                 <TextInput
                   onChange={e => setProjectName(e.target.value)}
                   id="project-name"
+                  required
                 />
               </div>
               <div className="flex flex-col gap-1">
@@ -134,6 +143,7 @@ function NewProject({ profileId }: { profileId: string }) {
                   placeholder="De uma breve descrição do seu projeto"
                   className="h-36"
                   onChange={e => setProjectDescription(e.target.value)}
+                  required
                 />
               </div>
               <div className="flex flex-col gap-1">

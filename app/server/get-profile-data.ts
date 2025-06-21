@@ -4,6 +4,9 @@ import { Link } from '../actions/create-custom-links';
 
 export type ProfileData = {
   userId: string;
+  name?: string;
+  imagePath?: string;
+  description?: string;
   totalVisits: string;
   createAt: Number;
   socialMedias: Record<string, string>;
@@ -30,7 +33,7 @@ export async function getProfileData(profileId: string) {
 
 export async function getProfileProjects(profileId: string) {
   const snapshot = await db
-    .collection('projects')
+    .collection('profiles')
     .doc(profileId)
     .collection('projects')
     .get();

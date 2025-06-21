@@ -1,6 +1,6 @@
 import Button from '@/app/components/ui/button';
 import TextInput from '@/app/components/ui/text-input';
-import UserCard from '../commons/user-card';
+import UserCard from '../commons/user-card/user-card';
 import { TotalVisits } from '../commons/total-visits';
 import { ProjectCard } from '../commons/project-card';
 
@@ -25,7 +25,7 @@ export default function Hero() {
 
       <div className="w-full flex items-center justify-center bg-[radial-gradient(circle_at_50%_50%,#4B2DBB,transparent_55%)]">
         <div className="relative">
-          <UserCard />
+          {/* <UserCard isOwner={false} />
           <div className="absolute -bottom-[7%] -right-[45%]">
             <TotalVisits />
           </div>
@@ -34,7 +34,7 @@ export default function Hero() {
           </div>
           <div className="absolute -top-[5%] -left-[55%] -z-10">
             <ProjectCard />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -58,19 +58,20 @@ export default function EditUserCard({
 
     const compressedFiles = await compressImageFile('profile-pic-input');
 
-    if (compressedFiles) {
-      const formData = new FormData();
-      formData.append('profileId', profileId as string);
-      formData.append('file', compressedFiles[0]);
-      formData.append('yourName', yourName || '');
-      formData.append('yourDescription', yourDescription || '');
+    const formData = new FormData();
 
-      await saveProfile(formData);
-      startTransition(() => {
-        handleCloseModal();
-        router.refresh();
-      });
+    if (compressedFiles) {
+      formData.append('file', compressedFiles[0]);
     }
+    formData.append('profileId', profileId as string);
+    formData.append('yourName', yourName || '');
+    formData.append('yourDescription', yourDescription || '');
+
+    await saveProfile(formData);
+    startTransition(() => {
+      handleCloseModal();
+      router.refresh();
+    });
   }
 
   return (
@@ -89,7 +90,7 @@ export default function EditUserCard({
               <div className="w-[100px] h-[100px] rounded-xl bg-background-tertiary overflow-hidden">
                 {profilePic ? (
                   <img
-                    src={profilePic} // Replace with the actual image URL from profileData
+                    src={profilePic}
                     alt="Profile Picture"
                     className="rounded-full object-cover object-center w-full h-full"
                   />

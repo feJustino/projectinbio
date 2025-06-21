@@ -9,8 +9,8 @@ export type ProfileData = {
   description?: string;
   totalVisits: string;
   createAt: Number;
-  socialMedias: Record<string, string>;
-  customLinks: Link[];
+  socialMedias?: Record<string, string>;
+  customLinks?: Link[];
   updateAt?: number;
 };
 

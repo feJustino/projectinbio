@@ -74,16 +74,17 @@ export default async function UserCard({
       </div>
       <div className="flex flex-col gap-3 w-full min-h-[172px]">
         <div className="w-full flex flex-col items-center gap-3">
-          {profileData.customLinks.map((link, index) => (
-            <Link
-              key={index}
-              target="_blank"
-              href={formatURL(link.url)}
-              className="w-full"
-            >
-              <Button className="w-full">{link.title}</Button>
-            </Link>
-          ))}
+          {profileData.customLinks &&
+            profileData.customLinks.map((link, index) => (
+              <Link
+                key={index}
+                target="_blank"
+                href={formatURL(link.url)}
+                className="w-full"
+              >
+                <Button className="w-full">{link.title}</Button>
+              </Link>
+            ))}
           {isOwner && <AddCustomLink customLinks={profileData?.customLinks} />}
         </div>
       </div>

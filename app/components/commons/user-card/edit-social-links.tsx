@@ -45,7 +45,7 @@ function SocialInput({
 }
 
 interface EditSocialsLinksProps {
-  socialMedias: Record<string, string>;
+  socialMedias?: Record<string, string>;
 }
 
 export default function EditSocialsLinks({

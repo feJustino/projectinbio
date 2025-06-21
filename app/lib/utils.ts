@@ -64,9 +64,13 @@ export function handleImageChange(e: React.ChangeEvent<HTMLInputElement>) {
 }
 
 export async function compressImageFile(documentId: string) {
-  const imageInput = document.getElementById(documentId) as HTMLInputElement;
-  if (imageInput.files && imageInput.files.length > 0) {
-    return await compressFiles(Array.from(imageInput.files));
+  try {
+    const imageInput = document.getElementById(documentId) as HTMLInputElement;
+    if (imageInput.files && imageInput.files.length > 0) {
+      return await compressFiles(Array.from(imageInput.files));
+    }
+  } catch (error) {
+    console.error('Error compressing image file:', error);
+    return null;
   }
-  return null;
 }

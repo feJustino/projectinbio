@@ -25,20 +25,7 @@ export default function Hero() {
 
       <div className="w-full flex items-center justify-center bg-[radial-gradient(circle_at_50%_50%,#4B2DBB,transparent_55%)]">
         <div className="relative">
-          <UserCard
-            isOwner={false}
-            profileData={{
-              userId: '',
-              name: undefined,
-              imagePath: undefined,
-              description: undefined,
-              totalVisits: 0,
-              createAt: Date.now(),
-              socialMedias: undefined,
-              customLinks: undefined,
-              updateAt: undefined,
-            }}
-          />
+          <UserCard isOwner={false} />
           <div className="absolute -bottom-[7%] -right-[45%]">
             <TotalVisits totalVisits={2701} />
           </div>
@@ -46,7 +33,7 @@ export default function Hero() {
             <ProjectCard isOwner={false} img={'project1.jpg'} />
           </div>
           <div className="absolute -top-[5%] -left-[55%] -z-10">
-            <ProjectCard isOwner={false} img={'project1.jpg'} />
+            <ProjectCard isOwner={false} img={'project2.jpg'} />
           </div>
         </div>
       </div>

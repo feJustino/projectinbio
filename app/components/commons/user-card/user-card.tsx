@@ -30,14 +30,14 @@ export default async function UserCard({
       <div className="size-48">
         <img
           src={profileImage || '/me.webp'}
-          alt="Justin Fernandes"
+          alt="Profile Image"
           className="rounded-full w-full h-full object-cover"
         />
       </div>
       <div className="flex flex-col gap-2 w-full">
         <div className="flex items-center gap-2">
           <h3 className="text-3xl font-bold min-w-0 overflow-hidden">
-            {profileData?.name || 'Justin Fernandes'}
+            {profileData?.name || 'Felipe Justino Dev'}
           </h3>
           {isOwner && profileData && (
             <EditUserCard

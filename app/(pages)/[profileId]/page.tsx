@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import NewProject from './new-project';
 import { getDownloadURLFromPath } from '@/app/lib/firebase';
+import { increaseProfileVisits } from '@/app/actions/increase-profile-visits';
 
 export default async function ProfilePage({
   params,
@@ -24,7 +25,10 @@ export default async function ProfilePage({
 
   const session = await auth();
   const isOwner = profileData.userId === session?.user?.id;
-  //TODO: adicionar pageView
+
+  if (!isOwner) {
+    await increaseProfileVisits(profileId);
+  }
   // TODO: se o usuário não estiver mais no trial não deixar mais ver o projeto. Direcionar upgrade
 
   return (
@@ -53,7 +57,7 @@ export default async function ProfilePage({
         {isOwner && <NewProject profileId={profileId} />}
       </div>
       <div className="absolute bottom-4 right-0 left-0 w-min mx-auto">
-        <TotalVisits />
+        {isOwner && <TotalVisits totalVisits={profileData.totalVisits} />}
       </div>
     </div>
   );

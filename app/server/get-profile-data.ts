@@ -7,7 +7,7 @@ export type ProfileData = {
   name?: string;
   imagePath?: string;
   description?: string;
-  totalVisits: string;
+  totalVisits?: number;
   createAt: Number;
   socialMedias?: Record<string, string>;
   customLinks?: Link[];

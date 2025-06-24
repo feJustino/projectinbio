@@ -13,7 +13,6 @@ export async function createSocialLinks({
 }) {
   const session = await auth();
 
-  console.log(links);
   if (!session) return;
   try {
     await db

@@ -43,36 +43,10 @@ export default function Hero() {
             <TotalVisits totalVisits={2701} />
           </div>
           <div className="absolute top-[20%] -left-[45%] -z-10">
-            <ProjectCard
-              project={{
-                id: '',
-                userId: '',
-                projectName: '',
-                projectDescription: '',
-                imagePath: '',
-                projectUrl: '',
-                createdAt: 0,
-                totalVisits: undefined,
-              }}
-              isOwner={false}
-              img={'project1.jpg'}
-            />
+            <ProjectCard isOwner={false} img={'project1.jpg'} />
           </div>
           <div className="absolute -top-[5%] -left-[55%] -z-10">
-            <ProjectCard
-              project={{
-                id: '',
-                userId: '',
-                projectName: '',
-                projectDescription: '',
-                imagePath: 'project2.jpg',
-                projectUrl: '',
-                createdAt: 0,
-                totalVisits: undefined,
-              }}
-              isOwner={false}
-              img={'project1.jpg'}
-            />
+            <ProjectCard isOwner={false} img={'project1.jpg'} />
           </div>
         </div>
       </div>

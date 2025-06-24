@@ -19,11 +19,11 @@ export default async function UserCard({
   profileData,
   isOwner,
 }: {
-  profileData: ProfileData;
+  profileData?: ProfileData;
   isOwner: boolean;
 }) {
   const icons = [Github, Linkedin, Instagram, Twitter];
-  const profileImage = await getDownloadURLFromPath(profileData.imagePath);
+  const profileImage = await getDownloadURLFromPath(profileData?.imagePath);
 
   return (
     <div className="w-[348px] flex flex-col gap-5 items-center p-5 border border-white border-opacity-10 bg-[#121212] rounded-3xl text-white">
@@ -37,21 +37,21 @@ export default async function UserCard({
       <div className="flex flex-col gap-2 w-full">
         <div className="flex items-center gap-2">
           <h3 className="text-3xl font-bold min-w-0 overflow-hidden">
-            {profileData.name || 'Justin Fernandes'}
+            {profileData?.name || 'Justin Fernandes'}
           </h3>
-          {isOwner && (
+          {isOwner && profileData && (
             <EditUserCard
               profileData={{ ...profileData, imagePath: profileImage }}
             />
           )}
         </div>
         <p className="opacity-40">
-          {profileData.description || 'Full Stack Developer'}
+          {profileData?.description || 'Full Stack Developer'}
         </p>
       </div>
       <div className="flex flex-col gap-2 w-full">
         <span className="uppercase text-xs font-medium">links</span>
-        <div className="flex gap-3">
+        <div className="flex gap-3 items-center justify-center w-full">
           {icons.map((Icon, index) => {
             const socialMediaKey = Icon.displayName?.toLowerCase() || '';
             return (
@@ -74,17 +74,16 @@ export default async function UserCard({
       </div>
       <div className="flex flex-col gap-3 w-full min-h-[172px]">
         <div className="w-full flex flex-col items-center gap-3">
-          {profileData.customLinks &&
-            profileData.customLinks.map((link, index) => (
-              <Link
-                key={index}
-                target="_blank"
-                href={formatURL(link.url)}
-                className="w-full"
-              >
-                <Button className="w-full">{link.title}</Button>
-              </Link>
-            ))}
+          {profileData?.customLinks?.map((link, index) => (
+            <Link
+              key={index}
+              target="_blank"
+              href={formatURL(link.url)}
+              className="w-full"
+            >
+              <Button className="w-full">{link.title}</Button>
+            </Link>
+          ))}
           {isOwner && <AddCustomLink customLinks={profileData?.customLinks} />}
         </div>
       </div>

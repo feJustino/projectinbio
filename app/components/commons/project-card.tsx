@@ -9,18 +9,22 @@ export function ProjectCard({
   project,
   isOwner,
   img,
+  fallbackDescription = 'ProjectInBio',
+  fallbackName = 'Projeto',
 }: {
-  project: ProjectData;
+  project?: ProjectData;
   isOwner: boolean;
   img: string;
+  fallbackName?: string;
+  fallbackDescription?: string;
 }) {
   const { profileId } = useParams();
-  const { projectName, projectDescription, totalVisits } = project;
-  const projectUrl = project.projectUrl || '';
+  const { projectName, projectDescription, totalVisits } = project || {};
+  const projectUrl = project?.projectUrl || '';
   const formattedURL = formatURL(projectUrl);
 
   async function handleClick() {
-    if (!project.id || !profileId || isOwner) return;
+    if (!project?.id || !profileId || isOwner) return;
     await increaseProjectVisits(profileId as string, project.id);
   }
 
@@ -47,9 +51,11 @@ export function ProjectCard({
             </span>
           )}
           <div className="flex flex-col">
-            <span className="text-white font-bold text-xl">{projectName}</span>
+            <span className="text-white font-bold text-xl">
+              {projectName || fallbackName}
+            </span>
             <span className="text-content-body text-sm">
-              {projectDescription}
+              {projectDescription || fallbackDescription}
             </span>
           </div>
         </div>
